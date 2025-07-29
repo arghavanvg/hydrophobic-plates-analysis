@@ -66,11 +66,11 @@ for frame_num in range(n_frames):
         z_counts[i].append(np.sum(mask))
 
 z_data = [[float(z_dist), float(np.mean(counts))] for z_dist, counts in zip(z_distances, z_counts)]
-np.savetxt(f"{output_path}counts.dat", z_data, fmt="%.1f\t%.8f")
+np.savetxt(f"{output_path}counts-z.dat", z_data, fmt="%.1f\t%.8f")
 
 v = float_d * 10 * slice_thickness * 10 * 17.1 #A^3
 numdens_data = [[float(z_dist), float(np.mean(counts))/v] for z_dist, counts in zip(z_distances, z_counts)]
-np.savetxt(f"{output_path}numdens.dat", numdens_data, fmt="%.1f\t%.5f")
+np.savetxt(f"{output_path}numdens-z.dat", numdens_data, fmt="%.1f\t%.5f")
 
 
 x_axis = [float(z_dist) for z_dist, _ in z_data]
@@ -94,7 +94,7 @@ plt.ylim(bottom=0)
 plt.gca().xaxis.set_minor_locator(MultipleLocator(0.5))
 plt.tick_params(axis='x', which='minor', length=2)
 plt.tight_layout()
-plt.savefig(f"{output_path}/counts.png", dpi=300)
+plt.savefig(f"{output_path}/counts-z.png", dpi=300)
 plt.close()
 
 
@@ -110,5 +110,5 @@ plt.ylim(bottom=0)
 plt.gca().xaxis.set_minor_locator(MultipleLocator(0.5))
 plt.tick_params(axis='x', which='minor', length=2)
 plt.tight_layout()
-plt.savefig(f"{output_path}/numDens.png", dpi=300)
+plt.savefig(f"{output_path}/numDens-z.png", dpi=300)
 plt.close()
