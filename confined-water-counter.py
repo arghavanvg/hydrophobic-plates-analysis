@@ -100,7 +100,7 @@ def main():
     plate_distance = float(dist)
 
     input_path = f'/Users/arghavan/Graduate Center Dropbox/Arghavan Vedadi Gargari/MyFiles/{temp}K/{dist}/'
-    output_path = f'/Users/arghavan/lab/hydrophobic_plates/results/{temp}K/{dist}/'
+    output_path = f'/Users/arghavan/lab/hp-results/meniscus-results/{temp}K/{dist}/'
 
 
     traj = load_trajectory(input_path, temp, dist)

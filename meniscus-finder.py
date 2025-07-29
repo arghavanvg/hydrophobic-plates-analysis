@@ -12,7 +12,7 @@ t = int(sys.argv[1])
 d = sys.argv[2]
 
 input_path = f'/Users/arghavan/Graduate Center Dropbox/Arghavan Vedadi Gargari/MyFiles/{t}K/{d}/'
-output_path = f'/Users/arghavan/lab/hydrophobic_plates/results/{t}K/{d}/'
+output_path = f'/Users/arghavan/lab/hp-results/meniscus-results/{t}K/{d}/'
 mean_nbr_path = f'{input_path}all_frame_mean_neighbours.pkl'
 Findx_path = f'{input_path}Findx_N_indices_neighbours_hbonds.pkl'
 
