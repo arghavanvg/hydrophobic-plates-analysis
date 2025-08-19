@@ -23,7 +23,7 @@ d = sys.argv[2]
 input_path = f'/Users/arghavan/Graduate Center Dropbox/Arghavan Vedadi Gargari/MyFiles/{t}K/{d}/'
 # hbond_output_path = f'/Users/arghavan/lab/hp-results/hbond_results/{t}K/{d}/'
 # nbr_output_path = f'/Users/arghavan/lab/hp-results/nbr_results/{t}K/{d}/'
-energy_output_path = f'/Users/arghavan/lab/hp-results/energy_results/{t}K/{d}/'
+energy_output_path = f'/Users/arghavan/lab/hp-results/split_energy_results/{t}K/{d}/'
 
 
 # prob_file = f'{energy_output_path}probability_{t}K_{d}.dat'
@@ -187,10 +187,10 @@ avg_num_wat_in_box = np.mean(num_wat_in_box)
 
 header = f"#[laptop input] Pairwise energy: {n_frames} frames for {t}K - {float(d)*10} A simulation \n# Column: E_n (kcal/mol)"
 # np.savetxt(energy_dx_file, pairwise_energies, fmt="%.6f", header=header,  delimiter=" ")
-np.savetxt(f"{energy_output_path}left_left_energy.dat", np.array(E_left_left), fmt="%.6f", header="Left-Left Energies\n" + header)
-np.savetxt(f"{energy_output_path}right_right_energy.dat", np.array(E_right_right), fmt="%.6f", header="Right-Right Energies\n" + header)
-np.savetxt(f"{energy_output_path}left_right_energy.dat", np.array(E_left_right), fmt="%.6f", header="Left-Right Energies\n" + header)
-np.savetxt(f"{energy_output_path}right_left_energy.dat", np.array(E_right_left), fmt="%.6f", header="Right-Left Energies\n" + header)
+np.savetxt(f"{energy_output_path}energies-left-same-side.dat", np.array(E_left_left), fmt="%.6f", header="Left-same side Energies\n" + header)
+np.savetxt(f"{energy_output_path}energies-right-same-side.dat", np.array(E_right_right), fmt="%.6f", header="Right-same side Energies\n" + header)
+np.savetxt(f"{energy_output_path}energies-left-opposite-side.dat", np.array(E_left_right), fmt="%.6f", header="Left-opposite side Energies\n" + header)
+np.savetxt(f"{energy_output_path}energies-right-opposite-side.dat", np.array(E_right_left), fmt="%.6f", header="Right-opposite side Energies\n" + header)
 
 
 # logger.info(f"Saved in {energy_dx_file}")
@@ -239,30 +239,30 @@ rho_i_right_left = prob_right_left * N_nbr
 
 
 
-with open(f'{energy_output_path}probability_left_left.dat', "w") as f:
+with open(f'{energy_output_path}probability-left-same-side.dat', "w") as f:
     for x, y in zip(bin_centers, prob_left_left):
         f.write(f"{x:.4f} {y:.6f}\n")
-with open(f'{energy_output_path}numDens_left_left.dat', "w") as f:
+with open(f'{energy_output_path}numDens-left-same-side.dat', "w") as f:
     for x, y in zip(bin_centers, rho_i_left_left):
         f.write(f"{x:.4f} {y:.6f}\n")
 
-with open(f'{energy_output_path}probability_right_right.dat', "w") as f:
+with open(f'{energy_output_path}probability-right-same-side.dat', "w") as f:
     for x, y in zip(bin_centers, prob_right_right):
         f.write(f"{x:.4f} {y:.6f}\n")
-with open(f'{energy_output_path}numDens_right_right.dat', "w") as f:
+with open(f'{energy_output_path}numDens-right-same-side.dat', "w") as f:
     for x, y in zip(bin_centers, rho_i_right_right):
         f.write(f"{x:.4f} {y:.6f}\n")
 
-with open(f'{energy_output_path}probability_left_right.dat', "w") as f:
+with open(f'{energy_output_path}probability-left-opposite-side.dat', "w") as f:
     for x, y in zip(bin_centers, prob_left_right):
         f.write(f"{x:.4f} {y:.6f}\n")
-with open(f'{energy_output_path}numDens_left_right.dat', "w") as f:
+with open(f'{energy_output_path}numDens-left-opposite-side.dat', "w") as f:
     for x, y in zip(bin_centers, rho_i_left_right):
         f.write(f"{x:.4f} {y:.6f}\n")
 
-with open(f'{energy_output_path}probability_right_left.dat', "w") as f:
+with open(f'{energy_output_path}probability-right-opposite-side.dat', "w") as f:
     for x, y in zip(bin_centers, prob_right_left):
         f.write(f"{x:.4f} {y:.6f}\n")
-with open(f'{energy_output_path}numDens_right_left.dat', "w") as f:
+with open(f'{energy_output_path}numDens-right-opposite-side.dat', "w") as f:
     for x, y in zip(bin_centers, rho_i_right_left):
         f.write(f"{x:.4f} {y:.6f}\n")
