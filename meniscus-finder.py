@@ -11,6 +11,8 @@ import sys
 t = int(sys.argv[1])
 d = sys.argv[2]
 
+bulk_dens = 0.03331284139 
+
 input_path = f'/Users/arghavan/Graduate Center Dropbox/Arghavan Vedadi Gargari/MyFiles/{t}K/{d}/'
 output_path = f'/Users/arghavan/lab/hp-results/meniscus-results/{t}K/{d}/'
 mean_nbr_path = f'{input_path}all_frame_mean_neighbours.pkl'
@@ -75,8 +77,8 @@ np.savetxt(f"{output_path}numdens-z.dat", numdens_data, fmt="%.1f\t%.5f")
 
 x_axis = [float(z_dist) for z_dist, _ in z_data]
 no_wats = [float(count) for _, count in z_data]
-numdens = [float(dens) for _, dens in numdens_data]
-
+numdens_unref = [float(dens) for _, dens in numdens_data]
+numdens = np.array(numdens_unref)/ bulk_dens
 
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
@@ -100,9 +102,9 @@ plt.close()
 
 plt.figure(figsize=(8, 6))
 plt.plot(x_axis, numdens, color='blue', linewidth=2, label=f"Plates distance = {float_d*10:.1f} Å")
-plt.title("Number Density Distribution between the edges")
+plt.title("Number Density Distribution Along Z-axis")
 plt.xlabel('Distance from the edge in Å', fontsize=14)
-plt.ylabel('Number Density N/(Å^3)', fontsize=14)
+plt.ylabel(r'Number density referenced to bulk density', fontsize=14)
 plt.legend()
 plt.xlim(0, 18)
 plt.ylim(bottom=0)

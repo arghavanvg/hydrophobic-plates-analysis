@@ -26,7 +26,7 @@ N_nbr = mean_nbr[0][0]
 
 def load_dx_file(dx_file):
     with open(dx_file, "r") as f:
-        energies = f.readlines()[3:]
+        energies = f.readlines()[4:]
         return np.array([float(value) for e in energies for value in e.split()])
     
 bin_width = 0.06
