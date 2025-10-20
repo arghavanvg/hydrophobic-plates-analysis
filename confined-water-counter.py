@@ -27,6 +27,8 @@ def get_plate_boundaries(traj, plate_atom_indices, plate_distance):
     Get the boundaries of the plates from the first frame. plates are fixed. so the first frame is sufficient.
     plates are centered at x=2.50 nm, and the distance between them is given by plate_distance.
 
+    menscus and volume are considered
+
     Args:
         traj (md.Trajectory): Molecular dynamics trajectory object.
         plate_atoms (list or np.ndarray): Indices of atoms that make up the plate surfaces.
@@ -37,12 +39,12 @@ def get_plate_boundaries(traj, plate_atom_indices, plate_distance):
 
     wall_coords = traj.xyz[0][plate_atom_indices]
     x_center = 2.50
-    x_min = np.float32(x_center - plate_distance / 2)
-    x_max = np.float32(x_center + plate_distance / 2)
-    y_min = np.min(wall_coords[:, 1])
-    y_max = np.max(wall_coords[:, 1])
-    z_min = np.min(wall_coords[:, 2])
-    z_max = np.max(wall_coords[:, 2])
+    x_min = np.float32(x_center - plate_distance / 2) + 0.278 # volume correction
+    x_max = np.float32(x_center + plate_distance / 2) - 0.278 # volume correction
+    y_min = np.min(wall_coords[:, 1]) + 0.400 # meniscus correction
+    y_max = np.max(wall_coords[:, 1]) - 0.400 # meniscus correction
+    z_min = np.min(wall_coords[:, 2]) + 0.400 # meniscus correction
+    z_max = np.max(wall_coords[:, 2]) - 0.400 # meniscus correction
     return x_min, x_max, y_min, y_max, z_min, z_max
 
 def count_waters_per_frame(traj, ox_indices, bounds):
