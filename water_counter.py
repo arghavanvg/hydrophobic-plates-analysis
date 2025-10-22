@@ -69,7 +69,7 @@ def main():
             f.write(f"Number of waters in the confined volume, excluding the meniscus and plate volume\n")
             f.write("# Distance(Å)      #N\n")
             for dist, avg in avg_wat_for_one_t:
-                f.write(f"{float(dist)*10:.1f}      {avg:.3f}\n")
+                f.write(f"{float(dist)*10:.1f}      {avg:.8f}\n")
 
 if __name__ == "__main__":
     main()
