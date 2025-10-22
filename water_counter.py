@@ -6,7 +6,7 @@ from warnings import filterwarnings
 
 filterwarnings("ignore")
 
-T_values = [f"{T}" for T in range(320, 361, 20)]
+T_values = [f"{T}" for T in range(300, 301, 20)]
 d_values = [f"{Decimal('0.24') + Decimal('0.02') * i:.2f}" for i in range(16, 64)]
 
 def load_trajectory(input_path: str, temp: str, dist: str):
@@ -17,12 +17,12 @@ def load_trajectory(input_path: str, temp: str, dist: str):
 def get_plate_boundaries(traj, plate_atom_indices, plate_distance):
     wall_coords = traj.xyz[0][plate_atom_indices]
     x_center = 2.50
-    x_min = np.float32(x_center - plate_distance / 2) + 0.278 # volume correction
-    x_max = np.float32(x_center + plate_distance / 2) - 0.278 # volume correction
-    y_min = np.min(wall_coords[:, 1]) + 0.400 # meniscus correction
-    y_max = np.max(wall_coords[:, 1]) - 0.400 # meniscus correction
-    z_min = np.min(wall_coords[:, 2]) + 0.400 # meniscus correction
-    z_max = np.max(wall_coords[:, 2]) - 0.400 # meniscus correction
+    x_min = np.float32(x_center - plate_distance / 2)
+    x_max = np.float32(x_center + plate_distance / 2)
+    y_min = np.min(wall_coords[:, 1]) 
+    y_max = np.max(wall_coords[:, 1]) 
+    z_min = np.min(wall_coords[:, 2]) 
+    z_max = np.max(wall_coords[:, 2]) 
     return x_min, x_max, y_min, y_max, z_min, z_max
 
 def count_waters_per_frame(traj, ox_indices, bounds):
@@ -63,7 +63,7 @@ def main():
                 print(f"✘ Failed for {temp}K {dist} nm: {e}")
 
         # Save one DX file per temperature
-        out_file = os.path.join(base_output, f"{temp}K_num_waters.dx")
+        out_file = os.path.join(base_output, f"{temp}K_tot_num_waters.dx")
 
         with open(out_file, "w") as f:
             f.write(f"Number of waters in the confined volume, excluding the meniscus and plate volume\n")
@@ -73,4 +73,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
