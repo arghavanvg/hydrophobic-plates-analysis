@@ -63,7 +63,7 @@ def main():
                 print(f"✘ Failed for {temp}K {dist} nm: {e}")
 
         # Save one DX file per temperature
-        out_file = os.path.join(base_output, f"{temp}K_tot_num_waters.dx")
+        out_file = os.path.join(base_output, f"{temp}K_tot_num_waters_.8f.dx")
 
         with open(out_file, "w") as f:
             f.write(f"Number of waters in the confined volume, excluding the meniscus and plate volume\n")
