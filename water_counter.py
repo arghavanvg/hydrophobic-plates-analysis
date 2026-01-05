@@ -17,8 +17,8 @@ def load_trajectory(input_path: str, temp: str, dist: str):
 def get_plate_boundaries(traj, plate_atom_indices, plate_distance):
     wall_coords = traj.xyz[0][plate_atom_indices]
     x_center = 2.50
-    x_min = np.float32(x_center - plate_distance / 2)
-    x_max = np.float32(x_center + plate_distance / 2)
+    x_min = np.float32(x_center - plate_distance / 2) + 0.278
+    x_max = np.float32(x_center + plate_distance / 2) - 0.278
     y_min = np.min(wall_coords[:, 1]) 
     y_max = np.max(wall_coords[:, 1]) 
     z_min = np.min(wall_coords[:, 2]) 
@@ -40,7 +40,7 @@ def count_waters_per_frame(traj, ox_indices, bounds):
 
 def main():
     base_input = "/gibbs/arghavan/plate_simulations/"
-    base_output = f"/gibbs/arghavan/hp-results-pc/number_of_waters/"
+    base_output = f"/gibbs/arghavan/hp-results-pc/number_of_waters-volume/"
     os.makedirs(base_output, exist_ok=True)
     
     for temp in T_values:
