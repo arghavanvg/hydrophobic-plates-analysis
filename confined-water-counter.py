@@ -102,13 +102,14 @@ def main():
     plate_distance = float(dist)
 
     #laptop input
-    input_path = f'/Users/arghavan/Graduate Center Dropbox/Arghavan Vedadi Gargari/MyFiles/{temp}K/{dist}/'
-    output_path = f'/Users/arghavan/lab/hp-results/meniscus-results/{temp}K/{dist}/'
-
-    #pc input
     # input_path = f'/Users/arghavan/Graduate Center Dropbox/Arghavan Vedadi Gargari/MyFiles/{temp}K/{dist}/'
     # output_path = f'/Users/arghavan/lab/hp-results/meniscus-results/{temp}K/{dist}/'
 
+    #pc input
+    input_path = f'/gibbs/arghavan/plate_simulations/{temp}K/{dist}/'
+    output_path = f'/gibbs/arghavan/hp-results-pc/wat-counter/{temp}K/{dist}/'
+    os.makedirs(output_path, exist_ok=True)
+    
     traj = load_trajectory(input_path, temp, dist)
     tpl = traj.topology
     all_ox_indices = tpl.select("name O")
