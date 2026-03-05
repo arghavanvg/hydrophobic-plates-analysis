@@ -134,7 +134,7 @@ right_bin_centers = right_edges[:-1] + bin_width / 2
 
 
 plt.figure(figsize=(8, 6))
-plt.plot(x_axis, no_wats, color='blue', linewidth=2, label=f"Plates distance = {float_d*10:.1f} Å")
+# plt.plot(x_axis, no_wats, color='blue', linewidth=2, label=f"Plates distance = {float_d*10:.1f} Å")
 # plt.plot(bin_centers, rho_i_plate, color='green', linewidth=2, label=f"{float(d)*10:.1f} Å")
 plt.title("Water Distribution between the edges")
 plt.xlabel('Distance from the edge in Å', fontsize=14)
@@ -151,7 +151,7 @@ plt.close()
 
 
 plt.figure(figsize=(8, 6))
-plt.plot(x_axis, numdens, color='blue', linewidth=2, label=f"Plates distance = {float_d*10:.1f} Å")
+# plt.plot(x_axis, numdens, color='blue', linewidth=2, label=f"Plates distance = {float_d*10:.1f} Å")
 plt.title("Number Density Distribution between the edges")
 plt.xlabel('Distance from the edge in Å', fontsize=14)
 plt.ylabel('Number Density N/(Å^3)', fontsize=14)
