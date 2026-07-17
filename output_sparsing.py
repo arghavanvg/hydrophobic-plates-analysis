@@ -1,6 +1,14 @@
 import numpy as np
 import pandas as pd
 
+"""
+This script processes the output files from GIST calculations for different distances between hydrophobic plates.
+It reads the data, filters out edge voxels within 2.5Å of each box boundary, and saves the cleaned data to new output files.
+The distances between the plates are specified in Angstroms, and the script iterates over a range of distances to perform the filtering for each corresponding distance.
+"""
+
+
+
 ints = list(range(54, 151, 2))
 distances_in_A = [f"{d/10:.1f}" for d in ints]
 
@@ -47,4 +55,5 @@ for d in distances_in_A:
             header=False,
             float_format="%.8f"
         )
+
 
