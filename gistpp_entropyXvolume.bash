@@ -18,8 +18,8 @@
 #   2. multconst by voxel volume (0.5^3 = 0.125) -> kcal/mol per voxel
 #   3. sum over all voxels -> total TS (kcal/mol)
 #
-# After the loop, rewrite the results file with values referenced to
-# the 15.0 Å total (TS_ref = TS(d) - TS(15.0)).
+# To reference totals to 15.0 Å, run:
+#   python reference_total_entropy.py
 #
 # Outputs:
 #   per distance dir:
@@ -76,23 +76,5 @@ for i in $(seq 54 2 150); do
     echo -e "${distance_angstrom}\t${total}" >> "$results_file"
     echo "$sum_out"
 done
-
-# Reference totals to the 15.0 Å value: TS_ref(d) = TS(d) - TS(15.0)
-awk '
-BEGIN { OFS="\t"; n = 0 }
-/^#/ { next }
-NF >= 2 {
-    n++
-    dist[n] = $1
-    val[n] = $2 + 0
-    if ($1 + 0 == 15.0) ref = $2 + 0
-}
-END {
-    print "#Dist(A)", "TotalEntropy(kcal/mol)", "TotalEntropy_ref15(kcal/mol)"
-    for (i = 1; i <= n; i++) {
-        print dist[i], val[i], val[i] - ref
-    }
-}
-' "$results_file" > "${results_file}.tmp" && mv "${results_file}.tmp" "$results_file"
 
 echo "Wrote results to $results_file"
