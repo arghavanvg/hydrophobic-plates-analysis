@@ -3,12 +3,16 @@
 # gistpp_entropyXvolume.bash
 # --------------------------
 # For each plate–plate distance (5.4–15.0 Å, step 0.2 Å), compute the
-# total-box first-order GIST entropy with gistpp.
+# first-order GIST entropy with gistpp over the whole box with edges
+# removed (2.5 Å from each boundary), matching gistpp_entropy.ipynb:
 #
-# Uses the original cpptraj dens maps (full grid). Do NOT use the
-# edge-removed makedx outputs here: makedx expects a complete voxel
-# table in grid order, so row-deleted edge-eliminated files misalign
-# the dens maps and produce nonsense (~1e10) sums.
+#   2.5 < x < 47.5
+#   2.5 < y < 47.5
+#   2.5 < z < 77.5
+#
+# Requires edge-removed dens maps from makedx.bash:
+#   d-<Å>-dTStrans-dens-edge-removed.dx
+#   d-<Å>-dTSorient-dens-edge-removed.dx
 #
 # Input dir per distance:
 #   /gibbs/arghavan/gist_hydrophobic_plates/gist_results/<Å>/
@@ -18,12 +22,9 @@
 #   2. multconst by voxel volume (0.5^3 = 0.125) -> kcal/mol per voxel
 #   3. sum over all voxels -> total TS (kcal/mol)
 #
-# To reference totals to 15.0 Å, run:
-#   python reference_total_entropy.py
-#
 # Outputs:
 #   per distance dir:
-#     d-<Å>-dTStot-dens.dx
+#     d-<Å>-dTStot-dens-edge-removed.dx
 #     d-<Å>-dTStotXVolume.dx
 #   results:
 #     /gibbs/arghavan/gist_hydrophobic_plates/gist_results/total_entropy_results.dat
@@ -50,13 +51,13 @@ for i in $(seq 54 2 150); do
     echo "=== Processing d=${distance_angstrom} Å ==="
     cd "$work_dir" || continue
 
-    trans_dx="d-${distance_angstrom}-dTStrans-dens.dx"
-    orient_dx="d-${distance_angstrom}-dTSorient-dens.dx"
-    tot_dens_dx="d-${distance_angstrom}-dTStot-dens.dx"
+    trans_dx="d-${distance_angstrom}-dTStrans-dens-edge-removed.dx"
+    orient_dx="d-${distance_angstrom}-dTSorient-dens-edge-removed.dx"
+    tot_dens_dx="d-${distance_angstrom}-dTStot-dens-edge-removed.dx"
     tot_dx="d-${distance_angstrom}-dTStotXVolume.dx"
 
     if [[ ! -f "$trans_dx" || ! -f "$orient_dx" ]]; then
-        echo "Missing dens maps in $work_dir; skipping"
+        echo "Missing edge-removed dens maps in $work_dir; skipping"
         continue
     fi
 
