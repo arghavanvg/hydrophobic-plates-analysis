@@ -79,18 +79,17 @@ done
 
 # Reference totals to the 15.0 Å value: TS_ref(d) = TS(d) - TS(15.0)
 awk '
-BEGIN { OFS="\t" }
+BEGIN { OFS="\t"; n = 0 }
 /^#/ { next }
 NF >= 2 {
-    dist[NR] = $1
-    val[NR] = $2 + 0
     n++
+    dist[n] = $1
+    val[n] = $2 + 0
     if ($1 + 0 == 15.0) ref = $2 + 0
 }
 END {
     print "#Dist(A)", "TotalEntropy(kcal/mol)", "TotalEntropy_ref15(kcal/mol)"
-    for (i = 1; i <= NR; i++) {
-        if (dist[i] == "") continue
+    for (i = 1; i <= n; i++) {
         print dist[i], val[i], val[i] - ref
     }
 }
